@@ -4,6 +4,20 @@ import "./post.scss";
 function Post(props) {
   const [user, setUser] = useState({});
   const [photo, setPhoto] = useState({});
+  const [avatarLetter, setAvatarLetter] = useState("");
+
+  const colors = [
+    "rgb(11, 75, 75)",
+    "rgb(11, 55, 75)",
+    "rgb(11, 75, 27)",
+    "rgb(75, 18, 11)",
+    "rgb(75, 11, 64)",
+    "rgb(74, 75, 11)",
+  ];
+
+  const getColot = () => {
+    return Math.floor((Math.random() * 10) % 6);
+  };
 
   useEffect(() => {
     const userUrl = `https://jsonplaceholder.typicode.com/users?id=${props.data.userId}`;
@@ -12,6 +26,7 @@ function Post(props) {
       .then((response) => response.json())
       .then((user) => {
         setUser(user[0]);
+        setAvatarLetter(user[0].name.substr(0, 1));
       });
   }, []);
 
@@ -27,7 +42,11 @@ function Post(props) {
 
   return (
     <div className="post">
-      <div className="pic"></div>
+      <div className="pic-div">
+        <div className="pic" style={{ backgroundColor: colors[getColot()] }}>
+          <span>{avatarLetter}</span>
+        </div>
+      </div>
       <div className="main">
         <div className="first-line">
           <div className="author-info">
