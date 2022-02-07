@@ -1,0 +1,63 @@
+$hover: rgb(246, 245, 245);
+$hover-blue: rgb(29, 155, 240);
+
+.post {
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  display: flex;
+
+  &:hover {
+    background-color: $hover;
+    cursor: pointer;
+  }
+
+  .pic {
+    border-radius: 50%;
+    background-color: rgb(11, 75, 75);
+    width: 140px;
+    height: 50px;
+    margin: 0 10px;
+  }
+
+  .first-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .name {
+    font-weight: bold;
+  }
+
+  .mail {
+    margin-left: 3px;
+    color: #888;
+  }
+
+  .right {
+    color: #777;
+    height: fit-content;
+    border-radius: 50%;
+    font-size: 28px;
+    line-height: 2px;
+    height: 2px;
+
+    &:hover {
+      color: $hover-blue;
+    }
+  }
+
+  .content {
+    margin: 10px 0;
+  }
+
+  svg {
+    fill: #666;
+    height: 25px;
+    width: 25px;
+
+    &:hover {
+      fill: $hover-blue;
+    }
+  }
+}
