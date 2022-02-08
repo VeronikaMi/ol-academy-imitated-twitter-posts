@@ -41,7 +41,7 @@ function Post(props) {
   }, []);
 
   return (
-    <div className="post">
+    <div className="post" onClick={props.showCommentsClick}>
       <div className="pic-div">
         <div className="pic" style={{ backgroundColor: colors[getColot()] }}>
           <span>{avatarLetter}</span>
