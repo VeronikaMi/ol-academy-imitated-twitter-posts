@@ -1,8 +1,8 @@
 $hover: rgb(246, 245, 245);
 $hover-blue: rgb(29, 155, 240);
 
-.post {
-  margin-bottom: 10px;
+.comment {
+  margin: 10px;
   padding: 10px 15px;
   display: flex;
 
@@ -33,30 +33,30 @@ $hover-blue: rgb(29, 155, 240);
   }
 
   .first-line {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-  }
 
-  .name {
-    font-weight: bold;
-  }
+    .name {
+      font-weight: bold;
+    }
 
-  .mail {
-    margin-left: 3px;
-    color: #888;
-  }
+    .mail {
+      margin-left: 3px;
+      color: #888;
+    }
 
-  .right {
-    color: #777;
-    height: fit-content;
-    border-radius: 50%;
-    font-size: 28px;
-    line-height: 2px;
-    height: 2px;
+    .right {
+      color: #777;
+      border-radius: 50%;
+      font-size: 28px;
+      line-height: 2px;
+      height: 2px;
 
-    &:hover {
-      color: $hover-blue;
+      &:hover {
+        color: $hover-blue;
+      }
     }
   }
 
