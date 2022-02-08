@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-// import { useClickAway } from "react-use";
 import "./post.scss";
+import useOnClickOutside from "../useOnClickOutside";
 
 function Post(props) {
   const dots = useRef();
@@ -98,9 +98,7 @@ function Post(props) {
     setShowList(false);
   };
 
-  // useClickAway(list, () => {
-  //   console.log("OUTSIDE CLICKED");
-  // });
+  useOnClickOutside(list, () => setShowList(false));
 
   return (
     <div
