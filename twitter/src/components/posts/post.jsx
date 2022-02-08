@@ -1,11 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+// import { useClickAway } from "react-use";
 import "./post.scss";
 
 function Post(props) {
+  const dots = useRef();
+  const heart = useRef();
+  const list = useRef();
+
   const [user, setUser] = useState({});
   const [photo, setPhoto] = useState({});
   const [avatarLetter, setAvatarLetter] = useState("");
   const [color, setColor] = useState("");
+  const [showList, setShowList] = useState(false);
+
   const [isLiked, setIsLiked] = useState(
     JSON.parse(localStorage.getItem("likedPosts"))
       ? JSON.parse(localStorage.getItem("likedPosts"))[props.data.id - 1][
@@ -66,10 +73,44 @@ function Post(props) {
     localStorage.setItem("likedPosts", JSON.stringify(likedPosts));
   }, [isLiked]);
 
+  const handleClick = (e) => {
+    if (showList && !list.current.contains(e.target)) {
+      setShowList(false);
+    }
+
+    if (
+      !dots.current.contains(e.target) &&
+      !heart.current.contains(e.target) &&
+      !showList
+    ) {
+      props.showCommentsClick();
+    }
+  };
+
+  const handleSeeTweet = () => {
+    if (props.seeOne) {
+      props.one(false);
+    } else {
+      props.twID(props.data.id);
+      props.one(true);
+    }
+
+    setShowList(false);
+  };
+
+  // useClickAway(list, () => {
+  //   console.log("OUTSIDE CLICKED");
+  // });
+
   return (
-    <div className="post" onClick={props.showCommentsClick}>
+    <div
+      className="post"
+      onClick={(e) => {
+        handleClick(e);
+      }}
+    >
       <div className="pic-div">
-        <div className="pic" style={{ backgroundColor: color}}>
+        <div className="pic" style={{ backgroundColor: color }}>
           <span>{avatarLetter}</span>
         </div>
       </div>
@@ -79,14 +120,34 @@ function Post(props) {
             <span className="name">{user.name}</span>
             <span className="mail">{user.email}</span>
           </div>
-          <div className="right">...</div>
+          <div className="right" ref={dots} onClick={() => setShowList(true)}>
+            ...
+          </div>
         </div>
         <div className="content">
+          {showList && (
+            <div className="select-list" ref={list}>
+              <ul>
+                <li
+                  onClick={() => {
+                    setIsLiked(!isLiked);
+                    setShowList(false);
+                  }}
+                >
+                  {isLiked ? "Unlike" : "Like"}
+                </li>
+                <li onClick={handleSeeTweet}>
+                  {props.seeOne ? "See All Tweets" : "See Tweet"}
+                </li>
+              </ul>
+            </div>
+          )}
           <p>{props.data.body}</p>
           <img src={photo.url} alt={photo.title} />
         </div>
         <div className="like">
           <svg
+            ref={heart}
             onClick={handleLikeClick}
             className={isLiked ? "active" : "default"}
           >
