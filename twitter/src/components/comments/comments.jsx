@@ -7,7 +7,7 @@ function Comments(props) {
   const commentRef = useRef();
   const [comments, setComments] = useState([]);
 
-  const fetchProducts = () => {
+  const fetchComments = () => {
     const commentsUrl = `https://jsonplaceholder.typicode.com/comments?postId=${props.clickedPostId}`;
 
     axios
@@ -21,7 +21,7 @@ function Comments(props) {
   };
 
   useEffect(() => {
-    fetchProducts();
+    fetchComments();
   }, []);
 
   const handleClick = (e) => {
