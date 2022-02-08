@@ -67,7 +67,7 @@ function Post(props) {
   }, [isLiked]);
 
   return (
-    <div className="post">
+    <div className="post" onClick={props.showCommentsClick}>
       <div className="pic-div">
         <div className="pic" style={{ backgroundColor: color}}>
           <span>{avatarLetter}</span>
