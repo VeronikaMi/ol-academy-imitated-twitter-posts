@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./post.scss";
-import useOnClickOutside from "../useOnClickOutside";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 function Post(props) {
   const dots = useRef();
