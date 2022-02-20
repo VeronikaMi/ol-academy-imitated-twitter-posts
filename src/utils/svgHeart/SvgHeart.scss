@@ -1,0 +1,18 @@
+$like: rgb(249, 24, 128);
+
+svg {
+  height: 25px;
+  width: 25px;
+
+  &.default {
+    fill: #666;
+
+    &:hover {
+      fill: $like;
+    }
+  }
+
+  &.active {
+    fill: $like;
+  }
+}

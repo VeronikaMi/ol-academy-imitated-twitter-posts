@@ -7,7 +7,7 @@ function Twitter() {
   const [posts, setPosts] = useState([]);
   const [showComments, setShowComments] = useState(false);
   const [clickedPostId, setClickedPostId] = useState(null);
-  const [seeOne, setSeeOne] = useState(false);
+  const [isSeeOnePost, setIsSeeOnePost] = useState(false);
   const [tweetId, setTweetId] = useState();
 
   useEffect(() => {
@@ -25,42 +25,31 @@ function Twitter() {
       {showComments && (
         <Comments
           clickedPostId={clickedPostId}
-          hideCommentsClick={() => {
-            setShowComments(false);
-          }}
+          hideCommentsClick={() => setShowComments(false)}
         />
       )}
-      {!seeOne &&
-        posts.length > 0 &&
-        posts.map((post) => (
-          <Post
-            seeOne={seeOne}
-            one={() => {
-              setSeeOne(true);
-            }}
-            twID={(id) => {
-              setTweetId(id);
-            }}
-            key={post.id}
-            data={post}
-            showCommentsClick={() => {
-              setClickedPostId(post.id);
-              setShowComments(true);
-            }}
-          />
-        ))}
-      {seeOne &&
-        posts
-          .filter((post) => post.id === tweetId)
-          .map((post) => (
+      {isSeeOnePost
+        ? posts
+            .filter((post) => post.id === tweetId)
+            .map((post) => (
+              <Post
+                isSeeOnePost={isSeeOnePost}
+                setToOnePost={(value) => setIsSeeOnePost(value)}
+                tweetId={(id) => setTweetId(id)}
+                key={post.id}
+                data={post}
+                showCommentsClick={() => {
+                  setClickedPostId(post.id);
+                  setShowComments(true);
+                }}
+              />
+            ))
+        : posts.length > 0 &&
+          posts.map((post) => (
             <Post
-              seeOne={seeOne}
-              one={(value) => {
-                setSeeOne(value);
-              }}
-              twID={(id) => {
-                setTweetId(id);
-              }}
+              isSeeOnePost={isSeeOnePost}
+              setToOnePost={() => setIsSeeOnePost(true)}
+              tweetId={(id) => setTweetId(id)}
               key={post.id}
               data={post}
               showCommentsClick={() => {

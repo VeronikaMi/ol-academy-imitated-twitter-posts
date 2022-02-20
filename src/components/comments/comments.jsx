@@ -3,12 +3,12 @@ import axios from "axios";
 import "./comments.scss";
 import Comment from "./comment/comment";
 
-function Comments(props) {
+function Comments({ clickedPostId, hideCommentsClick }) {
   const commentRef = useRef();
   const [comments, setComments] = useState([]);
 
   const fetchComments = () => {
-    const commentsUrl = `https://jsonplaceholder.typicode.com/comments?postId=${props.clickedPostId}`;
+    const commentsUrl = `https://jsonplaceholder.typicode.com/comments?postId=${clickedPostId}`;
 
     axios
       .get(commentsUrl)
@@ -26,19 +26,14 @@ function Comments(props) {
 
   const handleClick = (e) => {
     if (!commentRef.current.contains(e.target)) {
-      props.hideCommentsClick();
+      hideCommentsClick();
     }
   };
 
   return (
-    <div
-      className="comment-overlay"
-      onClick={(e) => {
-        handleClick(e);
-      }}
-    >
+    <div className="comment-overlay" onClick={handleClick}>
       <div className="comment-container" ref={commentRef}>
-        <button className="btn-close" onClick={props.hideCommentsClick}>
+        <button className="btn-close" onClick={hideCommentsClick}>
           X
         </button>
         {comments.map((comment) => (
